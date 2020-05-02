@@ -1,4 +1,4 @@
-package io.javabrains.spring.security.jwt.util;
+package com.test.spring.security.jwt.util;
 
 import java.util.Date;
 import java.util.HashMap;

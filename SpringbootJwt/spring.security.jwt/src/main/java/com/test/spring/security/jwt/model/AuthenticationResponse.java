@@ -1,4 +1,4 @@
-package io.javabrains.spring.security.jwt.model;
+package com.test.spring.security.jwt.model;
 
 public class AuthenticationResponse {
 private final String jwt;
