@@ -53,7 +53,7 @@ public class HashUtil {
 		}
 	}
 
-	private static boolean validatePassword(String originalPassword, String storedPassword)
+	public static boolean validatePassword(String originalPassword, String storedPassword)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
 		String[] parts = storedPassword.split(":");
 		int iterations = Integer.parseInt(parts[0]);

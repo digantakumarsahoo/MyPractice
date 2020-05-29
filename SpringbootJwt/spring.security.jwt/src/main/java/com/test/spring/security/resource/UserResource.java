@@ -9,11 +9,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.test.spring.security.jwt.model.AuthenticationRequest;
 import com.test.spring.security.jwt.model.AuthenticationResponse;
+import com.test.spring.security.jwt.model.ChangePasswordRequest;
+import com.test.spring.security.jwt.model.ChangePasswordResponse;
 import com.test.spring.security.jwt.model.DAOUser;
+import com.test.spring.security.jwt.model.OtpResponse;
 import com.test.spring.security.jwt.services.MyUserDetailsService;
 import com.test.spring.security.jwt.util.JwtUtil;
 
@@ -24,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/api")
 
-public class HelloResource {
+public class UserResource {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -83,4 +87,24 @@ public class HelloResource {
 		
 		
 	}
+	
+	@RequestMapping(value = "/changepassword",method =RequestMethod.PUT)
+	@ApiOperation(value = "Change user password ")
+	public ResponseEntity<ChangePasswordResponse> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) throws Exception {
+		try {
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(changePasswordRequest.getUserName(), changePasswordRequest.getCurrentPassword()));
+			ChangePasswordResponse response=userDetailService.updatePassword(changePasswordRequest);
+			return ResponseEntity.ok(response);
+		} catch (BadCredentialsException e) {
+			throw new Exception("Current Password is wrong ",e);
+		}
+		
+		
+	}
+	@RequestMapping(value = "/forgotpassword",method =RequestMethod.GET)
+	@ApiOperation(value = "forgot user password ")
+	public ResponseEntity<OtpResponse> forgotPassword(@RequestParam String emailId) throws Exception {
+			return ResponseEntity.ok(userDetailService.sendOtpForgotPassword(emailId));
+	
+	}	
 }

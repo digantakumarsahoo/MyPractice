@@ -33,7 +33,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
-		http.csrf().disable().authorizeRequests().antMatchers("/api/about","/api/authenticate","/api/register","/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll().anyRequest().authenticated().and().
+		http.csrf().disable().authorizeRequests().antMatchers("/api/about","/api/authenticate","/api/changepassword","/api/forgotpassword","/api/register","/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll().anyRequest().authenticated().and().
 		exceptionHandling().and().sessionManagement()
 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
